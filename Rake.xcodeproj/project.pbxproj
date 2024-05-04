@@ -15,6 +15,8 @@
 		1B72E8312BE5D3FA000BB508 /* RakeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B72E8302BE5D3FA000BB508 /* RakeTests.swift */; };
 		1B72E83B2BE5D3FA000BB508 /* RakeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B72E83A2BE5D3FA000BB508 /* RakeUITests.swift */; };
 		1B72E83D2BE5D3FA000BB508 /* RakeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B72E83C2BE5D3FA000BB508 /* RakeUITestsLaunchTests.swift */; };
+		1B72E84A2BE60260000BB508 /* WebScraper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B72E8492BE60260000BB508 /* WebScraper.swift */; };
+		1B72E8582BE61353000BB508 /* CustomXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B72E8572BE61353000BB508 /* CustomXmlParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,10 @@
 		1B72E8362BE5D3FA000BB508 /* RakeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RakeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B72E83A2BE5D3FA000BB508 /* RakeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RakeUITests.swift; sourceTree = "<group>"; };
 		1B72E83C2BE5D3FA000BB508 /* RakeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RakeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1B72E8492BE60260000BB508 /* WebScraper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebScraper.swift; sourceTree = "<group>"; };
+		1B72E8572BE61353000BB508 /* CustomXmlParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomXmlParser.m; sourceTree = "<group>"; };
+		1B72E8592BE6139D000BB508 /* CustomXmlParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomXmlParser.h; sourceTree = "<group>"; };
+		1B72E85A2BE61448000BB508 /* Rake-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Rake-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,8 +105,12 @@
 				1B72E81D2BE5D3F9000BB508 /* RakeApp.swift */,
 				1B72E81F2BE5D3F9000BB508 /* ContentView.swift */,
 				1B72E8212BE5D3F9000BB508 /* Item.swift */,
+				1B72E8492BE60260000BB508 /* WebScraper.swift */,
+				1B72E8572BE61353000BB508 /* CustomXmlParser.m */,
+				1B72E8592BE6139D000BB508 /* CustomXmlParser.h */,
 				1B72E8232BE5D3FA000BB508 /* Assets.xcassets */,
 				1B72E8252BE5D3FA000BB508 /* Preview Content */,
+				1B72E85A2BE61448000BB508 /* Rake-Bridging-Header.h */,
 			);
 			path = Rake;
 			sourceTree = "<group>";
@@ -146,6 +156,8 @@
 			dependencies = (
 			);
 			name = Rake;
+			packageProductDependencies = (
+			);
 			productName = Rake;
 			productReference = 1B72E81A2BE5D3F9000BB508 /* Rake.app */;
 			productType = "com.apple.product-type.application";
@@ -198,6 +210,7 @@
 				TargetAttributes = {
 					1B72E8192BE5D3F9000BB508 = {
 						CreatedOnToolsVersion = 15.2;
+						LastSwiftMigration = 1520;
 					};
 					1B72E82B2BE5D3FA000BB508 = {
 						CreatedOnToolsVersion = 15.2;
@@ -218,6 +231,8 @@
 				Base,
 			);
 			mainGroup = 1B72E8112BE5D3F8000BB508;
+			packageReferences = (
+			);
 			productRefGroup = 1B72E81B2BE5D3F9000BB508 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -260,7 +275,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B72E8582BE61353000BB508 /* CustomXmlParser.m in Sources */,
 				1B72E8202BE5D3F9000BB508 /* ContentView.swift in Sources */,
+				1B72E84A2BE60260000BB508 /* WebScraper.swift in Sources */,
 				1B72E8222BE5D3F9000BB508 /* Item.swift in Sources */,
 				1B72E81E2BE5D3F9000BB508 /* RakeApp.swift in Sources */,
 			);
@@ -423,17 +440,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Rake/Preview Content\"";
 				DEVELOPMENT_TEAM = L3ZPWB4HNK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = HarvestRake;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -442,6 +462,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanghwiback.Rake;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Rake/Rake-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -452,17 +474,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Rake/Preview Content\"";
 				DEVELOPMENT_TEAM = L3ZPWB4HNK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = HarvestRake;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -471,6 +496,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanghwiback.Rake;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Rake/Rake-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

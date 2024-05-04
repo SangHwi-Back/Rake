@@ -10,7 +10,12 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    
     @Query private var items: [Item]
+    
+    @State var searchText: String = ""
+    
+    let scrape = WebScraper()
 
     var body: some View {
         NavigationSplitView {
@@ -25,18 +30,27 @@ struct ContentView: View {
                 .onDelete(perform: deleteItems)
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    EditButton()
+//                }
+//                ToolbarItem {
+//                    Button(action: addItem) {
+//                        Label("Add Item", systemImage: "plus")
+//                    }
+//                }
                 ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                    Button("🧑‍🌾") {
+                        Task {
+                            await scrape()
+                        }
                     }
                 }
             }
         } detail: {
             Text("Select an item")
         }
+        .searchable(text: $searchText,
+                    isPresented: Binding.constant(!items.isEmpty))
     }
 
     private func addItem() {
@@ -44,6 +58,11 @@ struct ContentView: View {
             let newItem = Item(timestamp: Date())
             modelContext.insert(newItem)
         }
+    }
+    
+    private func scrape() async {
+        await scrape.scrapeWebPage(url: URL(string: "https://www.apple.com")!)
+        print("ended!!!!")
     }
 
     private func deleteItems(offsets: IndexSet) {
