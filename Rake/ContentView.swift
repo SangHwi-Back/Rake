@@ -7,41 +7,37 @@
 
 import SwiftUI
 import SwiftData
+import WebKit
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    
     @Query private var items: [Item]
     
     @State var searchText: String = ""
     
-    let scrape = WebScraper()
+    @ObservedObject var scrape = WebScraper()
 
     var body: some View {
         NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+            VStack {
+                if let webView = scrape.webView {
+                    WebViewContainer(view: webView)
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    EditButton()
-//                }
-//                ToolbarItem {
-//                    Button(action: addItem) {
-//                        Label("Add Item", systemImage: "plus")
-//                    }
-//                }
-                ToolbarItem {
-                    Button("🧑‍🌾") {
-                        Task {
-                            await scrape()
+                
+                List {
+                    ForEach(items) { item in
+                        NavigationLink {
+                            Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        } label: {
+                            Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        }
+                    }
+                    .onDelete(perform: deleteItems)
+                }
+                .toolbar {
+                    ToolbarItem {
+                        Button("🧑‍🌾") {
+                            Task { await scrape() }
                         }
                     }
                 }
@@ -61,8 +57,8 @@ struct ContentView: View {
     }
     
     private func scrape() async {
-        await scrape.scrapeWebPage(url: URL(string: "https://www.apple.com")!)
-        print("ended!!!!")
+        guard let url = URL(string: "https://www.naver.com") else { return }
+        await scrape.scrapeWebPage(url: url)
     }
 
     private func deleteItems(offsets: IndexSet) {
@@ -71,6 +67,16 @@ struct ContentView: View {
                 modelContext.delete(items[index])
             }
         }
+    }
+}
+
+struct WebViewContainer: UIViewRepresentable {
+    let view: WKWebView
+    
+    func updateUIView(_ uiView: WKWebView, context: Context) { }
+    func makeUIView(context: Context) -> WKWebView {
+        view.frame = .zero
+        return view
     }
 }
 

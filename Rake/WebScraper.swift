@@ -6,41 +6,80 @@
 //
 
 import UIKit
+import WebKit
 
-class WebScraper: NSObject {
+class WebScraper: NSObject, ObservableObject, WKScriptMessageHandler {
+    @Published var webView: WKWebView?
+    
+    private(set) var htmlElements: WebScraperElement?
+    
     func scrapeWebPage(url: URL) async {
         do {
-            let (data, _) = try await URLSession.shared.data(from: url)
-            let parser = XMLParser(data: data)
+            var request = URLRequest(url: url)
+            request.addValue("application/xml", forHTTPHeaderField: "Accept")
             
-            parser.delegate = self
-            parser.parse()
+            let (data, _) = try await URLSession.shared.data(for: request)
+            let htmlString = String(data: data, encoding: .utf8) ?? ""
             
-            let parser2 = CustomXmlParser(xmlData: data)
-            print(parser2?.dictionary)
-            print("haha")
+            if let url = Bundle.main.url(forResource: "core", withExtension: "js"),
+                let jsCode = try? String(contentsOf: url, encoding: .utf8) {
+                
+                DispatchQueue.main.async { [jsCode, htmlString] in
+                    let script = WKUserScript(source: jsCode, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+                    
+                    let contentController = WKUserContentController()
+                    contentController.addUserScript(script)
+                    contentController.add(self, name: "getDOMTree")
+                    
+                    let webViewConfiguration = WKWebViewConfiguration()
+                    webViewConfiguration.userContentController = contentController
+                    
+                    let webview = WKWebView(frame: .zero, configuration: webViewConfiguration)
+                    webview.loadHTMLString(htmlString, baseURL: url)
+                    webview.isInspectable = true
+                    self.webView = webview
+                }
+            }
         } catch {
             fatalError("Error fetching HTML: \(error)")
         }
     }
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        switch message.name {
+        case "getDOMTree":
+            guard let htmlTags = message.body as? Dictionary<String, Any> else {
+                return
+            }
+            
+            func decode(_ htmlTags: Dictionary<String, Any>) -> WebScraperElement? {
+                guard let tagName = htmlTags["name"] as? String,
+                    let attributes = htmlTags["attribute"] as? Dictionary<String, String> else {
+                    return nil
+                }
+                
+                var element = WebScraperElement(tagName: tagName, attributes: attributes)
+                
+                if let children = htmlTags["children"] as? Array<Dictionary<String, Any>>, children.isEmpty == false {
+                    for value in children {
+                        if let children = decode(value) {
+                            element.children.append(children)
+                        }
+                    }
+                }
+                
+                return element
+            }
+            
+            htmlElements = decode(htmlTags)
+        default:
+            return
+        }
+    }
 }
 
-extension WebScraper: XMLParserDelegate {
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, localNamespaceURI: String?) {
-        // Handle the start of an HTML element (e.g., <div>)
-        print("Started parsing \(elementName)")
-    }
-    
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
-        // Extract the desired data from the parsed HTML
-        print("Extracted text: \(string)")
-    }
-    
-    func parserDidStartDocument(_ parser: XMLParser) {
-        print("start")
-    }
-    
-    func parserDidEndDocument(_ parser: XMLParser) {
-        print("end")
-    }
+struct WebScraperElement: Codable {
+    let tagName: String
+    var attributes: Dictionary<String, String> = .init()
+    var children: [WebScraperElement] = []
 }

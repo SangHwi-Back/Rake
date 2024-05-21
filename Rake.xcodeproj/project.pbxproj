@@ -17,6 +17,7 @@
 		1B72E83D2BE5D3FA000BB508 /* RakeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B72E83C2BE5D3FA000BB508 /* RakeUITestsLaunchTests.swift */; };
 		1B72E84A2BE60260000BB508 /* WebScraper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B72E8492BE60260000BB508 /* WebScraper.swift */; };
 		1B72E8582BE61353000BB508 /* CustomXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B72E8572BE61353000BB508 /* CustomXmlParser.m */; };
+		A5670B2F2BF817D600E56BBF /* core.js in Resources */ = {isa = PBXBuildFile; fileRef = A5670B2E2BF817BF00E56BBF /* core.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,8 @@
 		1B72E8572BE61353000BB508 /* CustomXmlParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomXmlParser.m; sourceTree = "<group>"; };
 		1B72E8592BE6139D000BB508 /* CustomXmlParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomXmlParser.h; sourceTree = "<group>"; };
 		1B72E85A2BE61448000BB508 /* Rake-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Rake-Bridging-Header.h"; sourceTree = "<group>"; };
+		1B72E8612BEB652A000BB508 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A5670B2E2BF817BF00E56BBF /* core.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = core.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +105,7 @@
 		1B72E81C2BE5D3F9000BB508 /* Rake */ = {
 			isa = PBXGroup;
 			children = (
+				1B72E8612BEB652A000BB508 /* Info.plist */,
 				1B72E81D2BE5D3F9000BB508 /* RakeApp.swift */,
 				1B72E81F2BE5D3F9000BB508 /* ContentView.swift */,
 				1B72E8212BE5D3F9000BB508 /* Item.swift */,
@@ -111,6 +115,7 @@
 				1B72E8232BE5D3FA000BB508 /* Assets.xcassets */,
 				1B72E8252BE5D3FA000BB508 /* Preview Content */,
 				1B72E85A2BE61448000BB508 /* Rake-Bridging-Header.h */,
+				A5670B2E2BF817BF00E56BBF /* core.js */,
 			);
 			path = Rake;
 			sourceTree = "<group>";
@@ -249,6 +254,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5670B2F2BF817D600E56BBF /* core.js in Resources */,
 				1B72E8272BE5D3FA000BB508 /* Preview Assets.xcassets in Resources */,
 				1B72E8242BE5D3FA000BB508 /* Assets.xcassets in Resources */,
 			);
@@ -447,6 +453,7 @@
 				DEVELOPMENT_TEAM = L3ZPWB4HNK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Rake/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = HarvestRake;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -481,6 +488,7 @@
 				DEVELOPMENT_TEAM = L3ZPWB4HNK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Rake/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = HarvestRake;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
